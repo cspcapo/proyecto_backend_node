@@ -1,0 +1,25 @@
+{
+  "name": "proyecto_backend_node",
+  "version": "1.0.0",
+  "description": "Destinado a la entrega del trabajo practico final del curso de Back end Node JS.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cspcapo/proyecto_backend_node.git"
+  },
+  "keywords": [],
+  "author": "Christian Popoff",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/cspcapo/proyecto_backend_node/issues"
+  },
+  "homepage": "https://github.com/cspcapo/proyecto_backend_node#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
