@@ -13,7 +13,7 @@
   },
   "keywords": [],
   "author": "Christian Popoff",
-  "license": "ISC",
+  "license": "MIT",
   "type": "module",
   "bugs": {
     "url": "https://github.com/cspcapo/proyecto_backend_node/issues"
