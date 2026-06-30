@@ -1,8 +1,7 @@
-# dependencies
-/node_modules
+# dependencias
+node_modules
 
 # local env files
 .env
 
-#probar commit
 
