@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "dev": "node --watch index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cspcapo/proyecto_backend_node.git"
@@ -22,6 +24,7 @@
   "dependencies": {
     "body-parser": "^2.3.0",
     "cors": "^2.8.6",
+    "dotenv": "^16.4.0",
     "express": "^5.2.1",
     "firebase": "^12.15.0",
     "jsonwebtoken": "^9.0.3"
