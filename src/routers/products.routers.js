@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { auth } from "../middlewares/auth.middleware.js";
 import {
   getAllProducts,
   getProductById,
@@ -10,7 +11,9 @@ import {
 const router = Router();
 
 // Prefijo: /api/products
+router.use(auth);
 router.get("/", getAllProducts);
+router.post("/", createProduct);
 router.post("/create", createProduct);
 router.get("/:id", getProductById);
 router.put("/:id", updateProduct);

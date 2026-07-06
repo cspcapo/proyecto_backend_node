@@ -1,5 +1,6 @@
 # proyecto_backend_node
 Destinado a la entrega del trabajo practico final del curso de Back end Node JS.
+Deploy realizado en vercel, URL: https://proyecto-backend-node-tawny.vercel.app/
 
 Para inicializar la base de datos usar npm run seeder
 

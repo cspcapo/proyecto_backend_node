@@ -1,9 +1,11 @@
 import { Router } from "express";
 
+import { login } from "../controllers/auth.controller.js";
+
 const router = Router();
 
-router.post("/login", (req, res) => {
-  res.json({ message: "Ruta de login creada" });
-});
+// prefijo: /api/auth
+
+router.post("/login", login);
 
 export default router;
