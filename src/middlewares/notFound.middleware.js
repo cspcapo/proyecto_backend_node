@@ -1,3 +1,5 @@
-export default (req, res) => {
-  res.status(404).json({ message: "Ruta no encontrada" });
+export default (req, res, next) => {
+  const err = new Error("Ruta no encontrada");
+  err.status = 404;
+  next(err);
 };

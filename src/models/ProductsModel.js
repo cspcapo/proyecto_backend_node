@@ -26,37 +26,57 @@ export const getProducts = async () => {
 };
 
 export const getProductById = async (id) => {
-  const docRef = doc(db, "products", id);
-  const snapshot = await getDoc(docRef);
+  try {
+    const docRef = doc(db, "products", id);
+    const snapshot = await getDoc(docRef);
 
-  if (!snapshot.exists()) {
-    return null;
+    if (!snapshot.exists()) {
+      return null;
+    }
+
+    return {
+      id: snapshot.id,
+      ...snapshot.data(),
+    };
+  } catch (error) {
+    error.status = 500;
+    throw error;
   }
-
-  return {
-    id: snapshot.id,
-    ...snapshot.data(),
-  };
 };
 
 export const createProduct = async (product) => {
-  const productRef = await addDoc(productsCollection, product);
-  return {
-    id: productRef.id,
-    ...product,
-  };
+  try {
+    const productRef = await addDoc(productsCollection, product);
+    return {
+      id: productRef.id,
+      ...product,
+    };
+  } catch (error) {
+    error.status = 500;
+    throw error;
+  }
 };
 
 export const updateProduct = async (id, updates) => {
-  const docRef = doc(db, "products", id);
-  await updateDoc(docRef, updates);
-  return {
-    id,
-    ...updates,
-  };
+  try {
+    const docRef = doc(db, "products", id);
+    await updateDoc(docRef, updates);
+    return {
+      id,
+      ...updates,
+    };
+  } catch (error) {
+    error.status = 500;
+    throw error;
+  }
 };
 
 export const deleteProduct = async (id) => {
-  const docRef = doc(db, "products", id);
-  await deleteDoc(docRef);
+  try {
+    const docRef = doc(db, "products", id);
+    await deleteDoc(docRef);
+  } catch (error) {
+    error.status = 500;
+    throw error;
+  }
 };

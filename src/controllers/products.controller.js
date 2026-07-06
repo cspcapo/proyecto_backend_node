@@ -6,54 +6,83 @@ import {
   deleteProduct as deleteProductModel,
 } from "../models/ProductsModel.js";
 
-export const getAllProducts = async (req, res) => {
-  const products = await getProducts();
-  res.json(products);
-};
-
-export const getProductById = async (req, res) => {
-  const { id } = req.params;
-  const product = await getProductByIdModel(id);
-
-  if (!product) {
-    return res.status(404).json({
-      message: "Producto no encontrado",
-    });
+export const getAllProducts = async (req, res, next) => {
+  try {
+    const products = await getProducts();
+    res.json(products);
+  } catch (error) {
+    error.status = 500;
+    next(error);
   }
-
-  res.json(product);
 };
 
-export const createProduct = async (req, res) => {
-  const { name, price, stock } = req.body;
+export const getProductById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const product = await getProductByIdModel(id);
 
-  if (!name || !price || !stock) {
-    return res.status(422).json({
-      message: "Faltan datos obligatorios",
-    });
+    if (!product) {
+      const err = new Error("Producto no encontrado");
+      err.status = 404;
+      return next(err);
+    }
+
+    res.json(product);
+  } catch (error) {
+    error.status = 500;
+    next(error);
   }
-
-  const newProduct = await createProductModel({
-    name,
-    price,
-    stock,
-  });
-
-  res.status(201).json(newProduct);
 };
 
-export const updateProduct = async (req, res) => {
-  const { id } = req.params;
-  const updates = req.body;
+export const createProduct = async (req, res, next) => {
+  try {
+    const { name, price, stock, mark } = req.body;
 
-  const updatedProduct = await updateProductModel(id, updates);
+    if (!name || !price || !stock) {
+      const err = new Error("Faltan datos obligatorios");
+      err.status = 400;
+      return next(err);
+    }
 
-  res.json(updatedProduct);
+    const newProduct = await createProductModel({
+      name,
+      price,
+      stock,
+      mark,
+    });
+    res.status(201).json(newProduct);
+  } catch (error) {
+    error.status = 500;
+    next(error);
+  }
 };
 
-export const deleteProduct = async (req, res) => {
-  const { id } = req.params;
-  await deleteProductModel(id);
+export const updateProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const updates = req.body;
 
-  res.status(204).end();
+    if (!updates || Object.keys(updates).length === 0) {
+      const err = new Error("Datos de actualización faltantes");
+      err.status = 400;
+      return next(err);
+    }
+
+    const updatedProduct = await updateProductModel(id, updates);
+    res.json(updatedProduct);
+  } catch (error) {
+    error.status = 500;
+    next(error);
+  }
+};
+
+export const deleteProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await deleteProductModel(id);
+    res.status(200).json({ message: "Producto eliminado con éxito", id });
+  } catch (error) {
+    error.status = 500;
+    next(error);
+  }
 };
