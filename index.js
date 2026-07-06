@@ -13,7 +13,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/api/products", productsRouter);
-app.use("/auth/login", authRouter);
+app.use("/api/auth", authRouter);
 
 // Middleware para rutas desconocidas
 app.use(notFound);
